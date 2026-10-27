@@ -1,5 +1,28 @@
 import { relations } from "drizzle-orm";
-import { pgTable, text, timestamp, boolean, index } from "drizzle-orm/pg-core";
+import {
+  pgTable,
+  text,
+  timestamp,
+  boolean,
+  index,
+  uuid,
+  varchar,
+} from "drizzle-orm/pg-core";
+
+export const jobPostTable = pgTable("job_posts", {
+  postId: uuid("id").defaultRandom().primaryKey(),
+  postTitle: varchar("post_title", { length: 100 }).notNull(),
+  postDescriptiption: text("post_description").notNull(),
+  company: varchar("company", { length: 50 }).notNull(), 
+  postCreator: text("post_creator_id").references(() => user.id).notNull(),
+  //Will implement categories later.
+});
+
+export const jobApplicationsTable = pgTable("job_application", {
+  applicationId: uuid("id").defaultRandom().primaryKey(),
+  applicantName: text("applicant_name").references(() => user.name),
+  applicantId: text("applicant_id").references(() => user.id)
+})
 
 export const user = pgTable("user", {
   id: text("id").primaryKey(),
