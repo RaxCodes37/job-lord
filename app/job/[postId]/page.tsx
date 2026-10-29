@@ -10,7 +10,7 @@ export default async function JobDisplay({ params }: JobDisplayProps) {
   const { postId } = await params;
 
   return (
-    <div>
+    <div className="flex flex-col items-center min-h-screen bg-[#1c1c1c] text-white">
       <JobInfoClient postId={postId} />
     </div>
   );
