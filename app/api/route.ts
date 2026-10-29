@@ -16,7 +16,7 @@ export async function signUpAction(formData: FormData) {
       name,
     },
   }),
-    redirect("/"));
+    redirect("/dashboard"));
 }
 
 export async function signInAction(formData: FormData) {
@@ -29,12 +29,12 @@ export async function signInAction(formData: FormData) {
       password,
     },
   }),
-    redirect("/"));
+    redirect("/dashboard"));
 }
 
 export async function signOutAction() {
   (await auth.api.signOut({
     headers: await headers(),
   }),
-    redirect("/"));
+    redirect("/sign-in"));
 }
