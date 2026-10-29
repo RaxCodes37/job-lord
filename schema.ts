@@ -14,7 +14,7 @@ export const jobPostTable = pgTable(
   {
     postId: uuid("id").defaultRandom().primaryKey(),
     postTitle: varchar("post_title", { length: 100 }).notNull(),
-    postDescriptiption: text("post_description").notNull(),
+    postDescription: text("post_description").notNull(),
     company: varchar("company", { length: 50 }).notNull(),
     postCreator: text("post_creator_id")
       .references(() => user.id)
