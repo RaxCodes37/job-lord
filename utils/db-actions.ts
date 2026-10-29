@@ -1,6 +1,6 @@
 "use server";
 
-import { sql } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import { db } from "..";
 import { jobPostTable } from "@/schema";
 import { JobPost } from "./interfaces";
@@ -16,7 +16,16 @@ export const searchJobs = async (jobSearched: string) => {
   return results as JobPost[];
 };
 
-export const getAllJobs = async() => {
+export const getAllJobs = async () => {
   const results = await db.select().from(jobPostTable);
   return results as JobPost[];
-}
+};
+
+export const getSpecificJobInfo = async (postId: string) => {
+  const jobInfo = await db
+    .select()
+    .from(jobPostTable)
+    .where(eq(jobPostTable.postId, postId));
+
+  return jobInfo as JobPost[];
+};
