@@ -15,3 +15,8 @@ export const searchJobs = async (jobSearched: string) => {
 
   return results as JobPost[];
 };
+
+export const getAllJobs = async() => {
+  const results = await db.select().from(jobPostTable);
+  return results as JobPost[];
+}
