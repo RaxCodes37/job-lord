@@ -1,5 +1,6 @@
 import { getSession } from '@/lib/auth';
 import { redirect } from 'next/navigation';
+import DashboardNavBar from './nav-bar';
 export const instant = false;
 
 export default async function HomePage() {
@@ -7,8 +8,8 @@ export default async function HomePage() {
   if(!session) redirect('/sign-in');
 
   return (
-    <div>
-      
+    <div className="flex flex-col items-center min-h-screen bg-[#1c1c1c] text-white">
+      <DashboardNavBar />
     </div>
   )
 }
