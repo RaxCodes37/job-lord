@@ -1,4 +1,4 @@
-import { relations } from "drizzle-orm";
+import { relations, sql } from "drizzle-orm";
 import {
   pgTable,
   text,
@@ -9,21 +9,35 @@ import {
   varchar,
 } from "drizzle-orm/pg-core";
 
-export const jobPostTable = pgTable("job_posts", {
-  postId: uuid("id").defaultRandom().primaryKey(),
-  postTitle: varchar("post_title", { length: 100 }).notNull(),
-  postDescriptiption: text("post_description").notNull(),
-  company: varchar("company", { length: 50 }).notNull(), 
-  postCreator: text("post_creator_id").references(() => user.id).notNull(),
-  //Will implement categories later.
-});
+export const jobPostTable = pgTable(
+  "job_posts",
+  {
+    postId: uuid("id").defaultRandom().primaryKey(),
+    postTitle: varchar("post_title", { length: 100 }).notNull(),
+    postDescriptiption: text("post_description").notNull(),
+    company: varchar("company", { length: 50 }).notNull(),
+    postCreator: text("post_creator_id")
+      .references(() => user.id)
+      .notNull(),
+    //Will implement categories later.
+  },
+  (table) => [
+    index("title_search_index").using(
+      "gin",
+      sql`to_tsvector('english',
+    ${table.postTitle})`,
+    ),
+  ],
+);
 
 export const jobApplicationsTable = pgTable("job_application", {
   applicationId: uuid("id").defaultRandom().primaryKey(),
   applicantName: text("applicant_name").references(() => user.name),
   applicantId: text("applicant_id").references(() => user.id),
-  postAppliedFor: uuid("post_applied_for").references(() => jobPostTable.postId),
-})
+  postAppliedFor: uuid("post_applied_for").references(
+    () => jobPostTable.postId,
+  ),
+});
 
 export const user = pgTable("user", {
   id: text("id").primaryKey(),
