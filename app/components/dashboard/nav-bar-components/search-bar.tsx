@@ -10,9 +10,7 @@ export default function SearchBarComponent() {
   const [search, setSearch] = useState("")
   const router = useRouter();
 
-  const handleSearch = async (e: React.FormEvent) => {
-    e.preventDefault();
-
+  const handleSearch = async () => {
     if (!search.trim()) return;
 
     try {
