@@ -52,3 +52,26 @@ export const changeAccountMode = async (userId: string) => {
       .where(eq(user.id, userId));
   }
 };
+
+export const postJob = async (
+  posterId: string,
+  jobTitle: string,
+  jobDesc: string,
+  company: string,
+) => {
+  const accountStatus = await db
+    .select({ poster: user.poster })
+    .from(user)
+    .where(eq(user.id, posterId));
+
+  if (accountStatus[0].poster === true) {
+    await db.insert(jobPostTable).values({
+      postCreator: posterId,
+      postTitle: jobTitle,
+      postDescription: jobDesc,
+      company,
+    });
+  } else {
+    return
+  }
+};
