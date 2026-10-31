@@ -14,7 +14,7 @@ export default async function ListSearchedForums({
 
   return (
     <div className="bg-[#1c1c1c] h-screen text-white">
-      <SearchPageClient search={search} />;
+      <SearchPageClient search={search} />
     </div>
   );
 }
