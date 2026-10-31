@@ -1,10 +1,14 @@
 import YourPostsDisplay from "./created-post-display";
 import PostingNavBar from "./posting-navbar";
 
-export default function PostingDashboardClient() {
+interface Props {
+  userId: string
+}
+
+export default function PostingDashboardClient({userId}: Props) {
   return (
     <div className="flex flex-col items-center">
-      <PostingNavBar />
+      <PostingNavBar userId={userId}/>
 
       <YourPostsDisplay/>
     </div>

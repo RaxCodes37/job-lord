@@ -1,10 +1,28 @@
 "use client";
 
-import { useState } from "react";
+import { postJob } from "@/utils/db-actions";
+import { FormEvent, useState } from "react";
 import { FaPlus, FaX } from "react-icons/fa6";
 
-export default function CreateJob() {
+interface Props {
+  userId: string
+}
+
+export default function CreateJob({userId}: Props) {
   const [isOpen, setIsOpen] = useState(false);
+  const [jobTitle, setJobTitle] = useState("");
+  const [company, setCompany] = useState("");
+  const [jobDescription, setJobDescription] = useState("");
+
+  const createJobFunction = async (e: FormEvent) => {
+    e.preventDefault();
+
+    try {
+      await postJob(userId, jobTitle, jobDescription, company)
+    } catch (error) {
+      console.error("error creating job", error)
+    }
+  }
 
   return (
     <>
@@ -51,7 +69,7 @@ export default function CreateJob() {
               </p>
             </div>
 
-            <form className="flex flex-col gap-3">
+            <form className="flex flex-col gap-3" onSubmit={createJobFunction}>
               <label className="flex flex-col gap-2 text-sm font-medium text-gray-200">
                 Job title
                 <input
@@ -59,6 +77,8 @@ export default function CreateJob() {
                   placeholder="e.g. Frontend Engineer"
                   required
                   type="text"
+                  value={jobTitle}
+                  onChange={(event) => setJobTitle(event.target.value)}
                 />
               </label>
 
@@ -69,6 +89,8 @@ export default function CreateJob() {
                   placeholder="Company name"
                   required
                   type="text"
+                  value={company}
+                  onChange={(event) => setCompany(event.target.value)}
                 />
               </label>
 
@@ -78,8 +100,16 @@ export default function CreateJob() {
                   className="min-h-30 resize-y rounded-md border border-white/10 bg-[#191818] p-2 text-white outline-none"
                   placeholder="Describe the role and what you're looking for..."
                   required
+                  value={jobDescription}
+                  onChange={(event) => setJobDescription(event.target.value)}
                 />
               </label>
+              <button
+                className="rounded-md border border-white/10 bg-[#191818] px-4 py-2 font-medium text-white transition duration-400 hover:border-white/20 hover:bg-[#121010]"
+                type="submit"
+              >
+                Create job
+              </button>
             </form>
           </section>
         </div>
