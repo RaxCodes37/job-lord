@@ -29,7 +29,11 @@ export default function DisplaySearchResults({ jobs }: Props) {
               </p>
             </div>
 
-            <hr className="mt-3 mb-2 text-[#333030]" />
+            {jobs.length < 2 ? (
+              <div></div>
+            ) : (
+              <hr className="mt-3 mb-2 text-[#333030]" />
+            )}
           </div>
         ))
       )}
