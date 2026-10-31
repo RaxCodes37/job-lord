@@ -34,7 +34,7 @@ export default function SearchBarComponent() {
         onChange={(e) => setSearch(e.target.value)}
         className="border border-[#605252] bg-[#3e3939] rounded-md focus:outline-none p-1 px-2 h-10"
       />
-      <button className=" border border-[#605252] bg-[#3e3939] p-1 px-3 rounded-md h-10">
+      <button className="border border-[#605252] bg-[#3e3939] p-1 px-3 rounded-md h-10">
         <FaMagnifyingGlass />
       </button>
     </form>
