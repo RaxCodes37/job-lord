@@ -26,7 +26,10 @@ export default function Settings() {
             <p className="mt-1 text-sm text-[#838282]">
               Start posting jobs from your posting account.
             </p>
-            <button className="mt-4 border border-[#838282] rounded-md bg-[#353030] px-4 py-2 text-sm font-semibold duration-500 hover:bg-[#292626] hover:border-[#5e5e5e]">
+            <button
+              className="mt-4 border border-[#838282] rounded-md bg-[#353030] px-4 py-2 text-sm font-semibold duration-500 hover:bg-[#292626] hover:border-[#5e5e5e]"
+              onClick={() => router.push("/posting/dashboard")}
+            >
               Go Post
             </button>
           </section>
