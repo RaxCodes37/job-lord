@@ -1,0 +1,1 @@
+ALTER TABLE "user" ADD COLUMN "posting_account" boolean DEFAULT false NOT NULL;
