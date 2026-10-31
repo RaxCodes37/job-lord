@@ -3,6 +3,8 @@
 import { searchJobs } from "@/utils/db-actions";
 import { JobPost } from "@/utils/interfaces";
 import { useEffect, useState } from "react";
+import DashboardNavBar from "../dashboard/nav-bar";
+import DisplaySearchResults from "./display-search-results";
 
 interface Props {
   search: string;
@@ -21,5 +23,11 @@ export default function SearchPageClient({ search }: Props) {
 
   console.log(searchResults);
 
-  return <div></div>;
+  return (
+    <div className="flex flex-col items-center gap-10">
+      <DashboardNavBar />
+
+      <DisplaySearchResults jobs={searchResults}></DisplaySearchResults>
+    </div>
+  );
 }

@@ -12,5 +12,9 @@ export default async function ListSearchedForums({
 
   const search = q ?? "";
 
-  return <SearchPageClient search={search} />;
+  return (
+    <div className="bg-[#1c1c1c] h-screen text-white">
+      <SearchPageClient search={search} />;
+    </div>
+  );
 }
