@@ -1,7 +1,5 @@
 "use client";
 
-import { searchJobs } from "@/utils/db-actions";
-import { JobPost } from "@/utils/interfaces";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FaMagnifyingGlass } from "react-icons/fa6";

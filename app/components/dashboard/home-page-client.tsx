@@ -18,7 +18,7 @@ export default function HomePageClient() {
 
   return (
     <div className="flex flex-col items-center gap-10">
-      <DashboardNavBar />
+      <DashboardNavBar/>
       <JobDisplay jobs={jobs}/>
     </div>
   );
