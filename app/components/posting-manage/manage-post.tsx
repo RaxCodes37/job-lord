@@ -75,7 +75,7 @@ export default function ManagePostDisplay({
                         router.back();
                       }}
                     >
-                      <FaTrash></FaTrash>
+                      <FaTrash />
                     </button>
                   </div>
                 </div>
