@@ -93,3 +93,13 @@ export const getUserPosts = async (userId: string) => {
 
   return posts as JobPost[];
 };
+
+export const editPost = async (postId: string, jobTitle: string, jobDesc: string) => {
+  await db
+    .update(jobPostTable)
+    .set({
+      postTitle: jobTitle,
+      postDescription: jobDesc,
+    })
+    .where(eq(jobPostTable.postId, postId));
+};
