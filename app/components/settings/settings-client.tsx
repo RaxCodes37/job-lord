@@ -1,8 +1,9 @@
 "use client";
 
 import { signOutAction } from "@/app/api/route";
-import { changeAccountMode } from "@/utils/db-actions";
+import { changeAccountMode, getAccountMode } from "@/utils/db-actions";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 
 interface Props {
@@ -11,6 +12,14 @@ interface Props {
 
 export default function SettingsPageClient({ userId }: Props) {
   const router = useRouter();
+  const [accountMode, setAccountMode] = useState(false);
+
+  useEffect(() => {
+    const getUserAccountMode = async () => {
+      setAccountMode(await getAccountMode(userId));
+    };
+    getUserAccountMode();
+  }, []);
 
   return (
     <div className="h-screen bg-[#1c1c1c] text-white">
@@ -26,21 +35,40 @@ export default function SettingsPageClient({ userId }: Props) {
           </button>
         </div>
         <div className="border border-[#605252] rounded-md bg-[#3e3939]">
-          <section className="p-5">
-            <h2 className="text-lg font-medium">Go to Posting Account</h2>
-            <p className="mt-1 text-sm text-[#838282]">
-              Start posting jobs from your posting account.
-            </p>
-            <button
-              className="mt-4 border border-[#838282] rounded-md bg-[#353030] px-4 py-2 text-sm font-semibold duration-500 hover:bg-[#292626] hover:border-[#5e5e5e]"
-              onClick={async() => {
-                await changeAccountMode(userId)
-                router.push("/posting/dashboard");
-              }}
-            >
-              Go Post
-            </button>
-          </section>
+          {accountMode === false ? (
+            <section className="p-5">
+              <h2 className="text-lg font-medium">Go to Posting Account</h2>
+              <p className="mt-1 text-sm text-[#838282]">
+                Start posting jobs from your posting account.
+              </p>
+              <button
+                className="mt-4 border border-[#838282] rounded-md bg-[#353030] px-4 py-2 text-sm font-semibold duration-500 hover:bg-[#292626] hover:border-[#5e5e5e]"
+                onClick={async () => {
+                  await changeAccountMode(userId);
+                  router.push("/posting/dashboard");
+                }}
+              >
+                Go Post
+              </button>
+            </section>
+          ) : (
+            <section className="p-5">
+              <h2 className="text-lg font-medium">Go to Finding Account</h2>
+              <p className="mt-1 text-sm text-[#838282]">
+                Start finding jobs from your finding account.
+              </p>
+              <button
+                className="mt-4 border border-[#838282] rounded-md bg-[#353030] px-4 py-2 text-sm font-semibold duration-500 hover:bg-[#292626] hover:border-[#5e5e5e]"
+                onClick={async () => {
+                  await changeAccountMode(userId);
+                  router.push("/dashboard");
+                }}
+              >
+                Go Find
+              </button>
+            </section>
+          )}
+
           <hr className="my-2 text-[#605252]" />
           <section className="p-5">
             <h2 className="text-lg font-medium">Account</h2>

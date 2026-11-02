@@ -53,6 +53,15 @@ export const changeAccountMode = async (userId: string) => {
   }
 };
 
+export const getAccountMode = async (userId: string) => {
+  const mode = await db
+    .select({ poster: user.poster })
+    .from(user)
+    .where(eq(user.id, userId));
+
+  return mode[0].poster;
+};
+
 export const postJob = async (
   posterId: string,
   jobTitle: string,
@@ -72,6 +81,6 @@ export const postJob = async (
       company,
     });
   } else {
-    return
+    return;
   }
 };
