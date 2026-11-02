@@ -11,7 +11,7 @@ export default function JobDisplay({ jobs }: Props) {
   const router = useRouter();
 
   return (
-    <div className="w-100 bg-[#3e3939] p-4 rounded-md">
+    <div className="w-100 bg-[#3e3939] p-4 rounded-md shadow-2xl shadow-[#1f1e1e]">
       {jobs.length === 0 ? (
         <p className="text-white">No jobs found</p>
       ) : (

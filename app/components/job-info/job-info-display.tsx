@@ -11,7 +11,7 @@ interface Props {
 export default function JobInfoDisplay({ jobData }: Props) {
   const router = useRouter();
   return (
-    <div className="w-100 border border-[#605252] rounded-md bg-[#3e3939]">
+    <div className="w-100 border border-[#605252] rounded-md bg-[#3e3939] shadow-2xl shadow-[#1f1e1e]">
       {jobData.length === 0 ? (
         <div></div>
       ) : (

@@ -28,7 +28,7 @@ export default function CreateJob({userId}: Props) {
     <>
       <button
         aria-label="Create a job"
-        className="fixed left-6 top-5 flex h-10 w-10 items-center justify-center rounded-full border border-[#838282] bg-[#353030] duration-400 hover:bg-[#292626] hover:border-[#5e5e5e] text-white"
+        className="flex h-10 w-10 items-center justify-center rounded-full border border-[#838282] bg-[#353030] duration-400 hover:bg-[#292626] hover:border-[#5e5e5e] text-white"
         onClick={() => setIsOpen(true)}
         type="button"
       >

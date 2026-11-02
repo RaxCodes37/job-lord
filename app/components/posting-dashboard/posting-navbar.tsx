@@ -9,7 +9,7 @@ interface Props {
 
 export default function PostingNavBar({userId}: Props) {
   return (
-    <div className="mt-3">
+    <div className="mt-3 fixed left-6 top-5">
       <CreateJob userId={userId}/>
       <UserSettingsComponent />
     </div>
