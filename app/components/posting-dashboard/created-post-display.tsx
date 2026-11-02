@@ -1,5 +1,6 @@
 import { JobPost } from "@/utils/interfaces";
 import { useRouter } from "next/navigation";
+import { BsThreeDots } from "react-icons/bs";
 
 interface Props {
   yourPosts: JobPost[];
@@ -16,15 +17,21 @@ export default function YourPostsDisplay({ yourPosts }: Props) {
           <p className="text-white">No jobs found</p>
         ) : (
           yourPosts.map((job) => (
-            <div
-              key={job.postId}
-              onClick={() => router.push(`manage/job/${job.postId}`)}
-              className="cursor-pointer"
-            >
-              <h2 className="text-white text-lg font-semibold">
-                <span className="text-[#838282]">{job.company} -</span>{" "}
-                {job.postTitle}
-              </h2>
+            <div key={job.postId}>
+              <div className="flex justify-between items-center">
+                <h2 className="text-white text-lg font-semibold">
+                  <span className="text-[#838282]">{job.company} -</span>{" "}
+                  {job.postTitle}
+                </h2>
+
+                <button
+                  onClick={() => router.push(`manage/${job.postId}`)}
+                  className="cursor-pointer"
+                >
+                  <BsThreeDots />
+                </button>
+              </div>
+
               <div className="w-full bg-[#333030] p-2 rounded-md mt-2">
                 <p className="text-white">
                   {job.postDescription.substring(0, 47)}
