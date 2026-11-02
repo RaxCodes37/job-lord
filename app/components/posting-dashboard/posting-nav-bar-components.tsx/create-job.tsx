@@ -5,10 +5,10 @@ import { FormEvent, useState } from "react";
 import { FaPlus, FaX } from "react-icons/fa6";
 
 interface Props {
-  userId: string
+  userId: string;
 }
 
-export default function CreateJob({userId}: Props) {
+export default function CreateJob({ userId }: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const [jobTitle, setJobTitle] = useState("");
   const [company, setCompany] = useState("");
@@ -18,11 +18,14 @@ export default function CreateJob({userId}: Props) {
     e.preventDefault();
 
     try {
-      await postJob(userId, jobTitle, jobDescription, company)
+      await postJob(userId, jobTitle, jobDescription, company);
+
+      setIsOpen(false);
+      location.reload();
     } catch (error) {
-      console.error("error creating job", error)
+      console.error("error creating job", error);
     }
-  }
+  };
 
   return (
     <>
