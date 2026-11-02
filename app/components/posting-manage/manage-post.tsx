@@ -1,8 +1,9 @@
+import { deletePost } from "@/utils/db-actions";
 import { JobPost } from "@/utils/interfaces";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { FaArrowLeft } from "react-icons/fa";
-import { FaCheck } from "react-icons/fa6";
+import { FaCheck, FaTrash } from "react-icons/fa6";
 
 interface Props {
   post: JobPost[];
@@ -42,15 +43,17 @@ export default function ManagePostDisplay({
                     <h3 className="mt-3 px-3 text-xl font-semibold text-[#838282]">
                       {job.company}
                     </h3>
-                    <input
-                      type="text"
-                      className="w-full px-3 py-2 mx-3 mt-1 text-2xl bg-[#353030] border-2 border-[#838282] rounded-md text-white focus:outline-none"
-                      value={postTitle}
-                      onChange={(event) => setPostTitle(event.target.value)}
-                      placeholder="New title"
-                    />
+                    <div className="flex justify-between">
+                      <input
+                        type="text"
+                        className="w-full px-3 py-2 mx-3 mt-1 text-xl bg-[#353030] border-2 border-[#838282] rounded-md text-white focus:outline-none"
+                        value={postTitle}
+                        onChange={(event) => setPostTitle(event.target.value)}
+                        placeholder="New title"
+                      />
+                    </div>
                   </div>
-                  <div className="flex mt-3 mr-0.5 gap-2">
+                  <div className="flex mt-3 mr-2 gap-2">
                     <button
                       className=" border border-[#838282] rounded-md bg-[#353030] p-1 duration-500 hover:bg-[#292626] hover:border-[#5e5e5e]"
                       onClick={() => router.back()}
@@ -58,12 +61,21 @@ export default function ManagePostDisplay({
                       <FaArrowLeft />
                     </button>
                     <button
-                      className="border border-[#838282] rounded-md bg-[#353030] p-1 mr-2 duration-500 hover:bg-[#292626] hover:border-[#5e5e5e]"
+                      className="border border-[#838282] rounded-md bg-[#353030] p-1 duration-500 hover:bg-[#292626] hover:border-[#5e5e5e]"
                       onClick={() =>
                         editPostFunction(job.postId, postTitle, postDescription)
                       }
                     >
                       <FaCheck />
+                    </button>
+                    <button
+                      className="rounded-md border border-[#e67474] bg-[#c35353] p-1 duration-500 hover:bg-[#a54242]"
+                      onClick={async () => {
+                        await deletePost(job.postId);
+                        router.back();
+                      }}
+                    >
+                      <FaTrash></FaTrash>
                     </button>
                   </div>
                 </div>

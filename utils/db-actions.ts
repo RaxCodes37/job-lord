@@ -94,7 +94,11 @@ export const getUserPosts = async (userId: string) => {
   return posts as JobPost[];
 };
 
-export const editPost = async (postId: string, jobTitle: string, jobDesc: string) => {
+export const editPost = async (
+  postId: string,
+  jobTitle: string,
+  jobDesc: string,
+) => {
   await db
     .update(jobPostTable)
     .set({
@@ -102,4 +106,8 @@ export const editPost = async (postId: string, jobTitle: string, jobDesc: string
       postDescription: jobDesc,
     })
     .where(eq(jobPostTable.postId, postId));
+};
+
+export const deletePost = async (postId: string) => {
+  await db.delete(jobPostTable).where(eq(jobPostTable.postId, postId));
 };
