@@ -33,6 +33,8 @@ export const jobPostTable = pgTable(
 export const jobApplicationsTable = pgTable("job_application", {
   applicationId: uuid("id").defaultRandom().primaryKey(),
   applicantName: text("applicant_name").references(() => user.name),
+  applicantEmail: text("applicant_email").references(() => user.email),
+  applicantMessage: text("applicant_message"),
   applicantId: text("applicant_id").references(() => user.id),
   postAppliedFor: uuid("post_applied_for").references(
     () => jobPostTable.postId,
