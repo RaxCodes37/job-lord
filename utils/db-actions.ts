@@ -2,8 +2,9 @@
 
 import { eq, sql } from "drizzle-orm";
 import { db } from "..";
-import { jobPostTable, user } from "@/schema";
-import { JobPost } from "./interfaces";
+import { jobApplicationsTable, jobPostTable, user } from "@/schema";
+import { getSession } from "@/lib/auth";
+import { JobApplication, JobPost } from "./interfaces";
 
 export const searchJobs = async (jobSearched: string) => {
   const results = await db
@@ -28,6 +29,46 @@ export const getSpecificJobInfo = async (postId: string) => {
     .where(eq(jobPostTable.postId, postId));
 
   return jobInfo as JobPost[];
+};
+
+export const postApplication = async (
+  applicantName: string,
+  applicantId: string,
+  applicantEmail: string,
+  applicantMessage: string,
+  postId: string,
+) => {
+  await db.insert(jobApplicationsTable).values({
+    applicantName,
+    applicantId,
+    applicantEmail,
+    applicantMessage,
+    postAppliedFor: postId,
+  });
+};
+
+export const getPostApplications = async (postId: string) => {
+  const session = await getSession();
+
+  if (!session) {
+    throw new Error("You must be signed in to view applications.");
+  }
+
+  const post = await db
+    .select({ postCreator: jobPostTable.postCreator })
+    .from(jobPostTable)
+    .where(eq(jobPostTable.postId, postId));
+
+  if (post[0]?.postCreator !== session.user.id) {
+    throw new Error("You can only view applications for your own posts.");
+  }
+
+  const applications = await db
+    .select()
+    .from(jobApplicationsTable)
+    .where(eq(jobApplicationsTable.postAppliedFor, postId));
+
+  return applications as JobApplication[];
 };
 
 export const changeAccountMode = async (userId: string) => {

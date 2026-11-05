@@ -8,9 +8,10 @@ import DashboardNavBar from "../dashboard/nav-bar";
 
 interface Props {
   postId: string;
+  userId: string;
 }
 
-export default function JobInfoClient({ postId }: Props) {
+export default function JobInfoClient({ postId, userId }: Props) {
   const [jobData, setJobData] = useState<JobPost[]>([]);
 
   useEffect(() => {
@@ -24,7 +25,7 @@ export default function JobInfoClient({ postId }: Props) {
   return (
     <div className="flex flex-col items-center gap-10">
       <DashboardNavBar />
-      <JobInfoDisplay jobData={jobData} />
+      <JobInfoDisplay jobData={jobData} userId={userId} />
     </div>
   );
 }

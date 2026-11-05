@@ -3,13 +3,18 @@
 import { JobPost } from "@/utils/interfaces";
 import { useRouter } from "next/navigation";
 import { FaArrowLeft } from "react-icons/fa6";
+import { useState } from "react";
+import ApplicationModal from "./application-modal";
 
 interface Props {
   jobData: JobPost[];
+  userId: string;
 }
 
-export default function JobInfoDisplay({ jobData }: Props) {
+export default function JobInfoDisplay({ jobData, userId }: Props) {
   const router = useRouter();
+  const [applicationJob, setApplicationJob] = useState<JobPost | null>(null);
+
   return (
     <div className="w-100 border border-[#605252] rounded-md bg-[#3e3939] shadow-2xl shadow-[#1f1e1e]">
       {jobData.length === 0 ? (
@@ -28,12 +33,20 @@ export default function JobInfoDisplay({ jobData }: Props) {
                       {job.postTitle}
                     </h2>
                   </div>
-                  <button
-                    className="border border-[#838282] rounded-md bg-[#353030] p-1 m-1 mr-3 duration-500 hover:bg-[#292626] hover:border-[#5e5e5e]"
-                    onClick={() => router.back()}
-                  >
-                    <FaArrowLeft />
-                  </button>
+                  <div className="flex gap-2 mr-2.5">
+                    <button
+                      className="border border-[#8ba0ff] rounded-md bg-[#6981ea] p-1 px-2 duration-500 hover:bg-[#4d62c1] hover:border-[#5b79ff]"
+                      onClick={() => setApplicationJob(job)}
+                    >
+                      Apply
+                    </button>
+                    <button
+                      className="border border-[#838282] rounded-md bg-[#353030] p-1 px-2 duration-500 hover:bg-[#292626] hover:border-[#5e5e5e]"
+                      onClick={() => router.back()}
+                    >
+                      <FaArrowLeft />
+                    </button>
+                  </div>
                 </div>
                 <hr className="mt-3 mb-2 text-[#605252]" />
               </div>
@@ -46,6 +59,13 @@ export default function JobInfoDisplay({ jobData }: Props) {
             </div>
           ))}
         </div>
+      )}
+      {applicationJob && (
+        <ApplicationModal
+          job={applicationJob}
+          userId={userId}
+          onClose={() => setApplicationJob(null)}
+        />
       )}
     </div>
   );
