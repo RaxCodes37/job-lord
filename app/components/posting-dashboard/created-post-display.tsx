@@ -1,6 +1,7 @@
 import { JobPost } from "@/utils/interfaces";
 import { useRouter } from "next/navigation";
 import { BsThreeDots } from "react-icons/bs";
+import { LuClipboardList } from "react-icons/lu";
 
 interface Props {
   yourPosts: JobPost[];
@@ -24,12 +25,22 @@ export default function YourPostsDisplay({ yourPosts }: Props) {
                   {job.postTitle}
                 </h2>
 
-                <button
-                  onClick={() => router.push(`manage/${job.postId}`)}
-                  className="cursor-pointer"
-                >
-                  <BsThreeDots />
-                </button>
+                <div className="flex gap-2">
+                  <button
+                    onClick={() =>
+                      router.push(`/posting/applications/${job.postId}`)
+                    }
+                    className="border border-[#8ba0ff] rounded-md bg-[#6981ea] p-1 duration-500 hover:bg-[#4d62c1] hover:border-[#5b79ff]"
+                  >
+                    <LuClipboardList />
+                  </button>
+                  <button
+                    onClick={() => router.push(`manage/${job.postId}`)}
+                    className="cursor-pointer border border-[#838282] rounded-md bg-[#353030] p-1 duration-500 hover:bg-[#292626] hover:border-[#5e5e5e]"
+                  >
+                    <BsThreeDots />
+                  </button>
+                </div>
               </div>
 
               <div className="w-full bg-[#333030] p-2 rounded-md mt-2">
